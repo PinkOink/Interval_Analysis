@@ -1,4 +1,4 @@
-function [Z, WorkList, widths, extrems] = globopt0(X, ObjFunc)
+function [Z, WorkList, widths, extrems, block_centers] = globopt0(X, ObjFunc)
 % 
 %   Простейший интервальный адаптивный алгоритм глобальной оптимизации.
 %   Решает задачу минимизации целевой функции, интервальное расширение 
@@ -51,6 +51,9 @@ widths = [];
 
 % инициализируем список экстремумов ведущих элементов
 extrems = [];
+
+% инициализируем список центров брусков ведущих элементов
+block_centers = [];
   
 while ( NStep <= MaxStepNumber ) 
     
@@ -103,6 +106,9 @@ while ( NStep <= MaxStepNumber )
     
     % записываем значение экстремума для ведущего бруска
     extrems = [extrems LeadEst];
+    
+    % записываем координаты центра ведущего бруска
+    block_centers = [block_centers; mid(WorkList(Leading).Box(1)) mid(WorkList(Leading).Box(2))];
     
     %   удаляем бывшую ведущую запись из рабочего списка
     WorkList(Leading) = [];  
