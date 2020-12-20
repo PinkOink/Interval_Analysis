@@ -20,8 +20,8 @@
 \section{Постановка задачи}
 
 Требуется решить недоопределённую интервальную систему линейных алгебраических уравнений (ИСЛАУ) с матрицей 3x2 и переопределённую ИСЛАУ с матрицей 2x3. Используемые матрицы должны совпадать с точностью до транспонирования. \\
-Найти допусковое множество решений, оценку вариабельности решения $ive$. \\
-Для случая 3х2 построить график $Tol(x_1, x_2)$. \\
+Найти допусковое множество решений, оценку вариабельности решения ive. \\
+Для случая 3х2 построить график $\text{Tol}(x_1, x_2)$. \\
 Для случая 2x3 проанализировать решение. \\
 Построить 3-мерный образ допускового множества или его проекции на плоскости $(x_i O x_j)$.
 
@@ -33,17 +33,17 @@
 
 	\item Распознающий функционал для исследования разрешимости ИСЛАУ:
 		\begin{equation}
-			Tol(x)=\min_{1 \leq i \leq n} (rad b_i - |mid b_i - \sum_{j=1}^{m}a_{ij}x_j|)
+			\text{Tol}(x)=\min_{1 \leq i \leq n} (\text{rad} b_i - |\text{mid} b_i - \sum_{j=1}^{m}a_{ij}x_j|)
 		\end{equation}
 	
 	\item Мера вариабельности:
 		\begin{equation}
-			ive(\textbf{A}, \textbf{b})= \sqrt{n} (\min_{A \in \textbf{A}} cond A) * ||\arg \max Tol || * \frac{\max Tol}{||b||}
+			\text{ive}(\textbf{A}, \textbf{b})= \sqrt{n} (\min_{A \in \textbf{A}} \text{cond} A) * ||\arg \max \text{Tol} || * \frac{\max \text{Tol}}{||b||}
 		\end{equation}
 	
 	\item Расчет бруса:
 		\begin{equation}
-			\tilde{x} = [ \arg \max Tol - ive, \arg \max Tol + ive ]
+			\tilde{x} = [ \arg \max \text{Tol} - \text{ive}, \arg \max \text{Tol} + \text{ive} ]
 		\end{equation}
 
 \end{itemize}
@@ -77,14 +77,14 @@
 \end{equation}
 Зададим радиусы для матрицы $\textbf{A}$ и вектора $\textbf{b}$:
 \begin{equation}
-	rad \textbf{A}=
+	\text{rad} \textbf{A}=
 	\begin{pmatrix}
 		1 & 2 & 3 \\
 		2 & 1 & 2
 	\end{pmatrix}
 \end{equation}
 \begin{equation}
-	rad \textbf{b}=
+	\text{rad} \textbf{b}=
 	\begin{pmatrix}
 		1 & 2
 	\end{pmatrix}^T
@@ -131,7 +131,7 @@
 \end{equation}
 Зададим радиус для вектора $\textbf{b}$:
 \begin{equation}
-	rad \textbf{b}=
+	\text{rad} \textbf{b}=
 	\begin{pmatrix}
 		3 & 5 & 6
 	\end{pmatrix}^T
@@ -157,12 +157,12 @@
 \section{Результаты}
 
 \subsection{Недоопределённая ИСЛАУ}
-Решим задачу с помощью функции $tolsolvty$. Получим максимум распознающего функционала $Tol$ и значение аргумента, в котором максимум достигался:
+Решим задачу с помощью функции $\text{tolsolvty}$. Получим максимум распознающего функционала $\text{Tol}$ и значение аргумента, в котором максимум достигался:
 \begin{equation}
-	\max Tol = 0.3437
+	\max \text{Tol} = 0.3437
 \end{equation}
 \begin{equation}
-	\arg \max Tol=
+	\arg \max \text{Tol}=
 	\begin{pmatrix}
 		0.406 \\
 		0.125 \\
@@ -173,11 +173,11 @@
 \subsubsection{Оценка меры вариабельности ive}
 Минимальное число обусловленности матрицы $A$ равно:
 \begin{equation}
-	\min cond \textbf{A} = 2.2427
+	\min \text{cond} \textbf{A} = 2.2427
 \end{equation}
 Оценка меры вариабельности равна:
 \begin{equation}
-	ive(\textbf{A}, \textbf{b}) = 0.1638
+	\text{ive}(\textbf{A}, \textbf{b}) = 0.1638
 \end{equation}
 Брус оценки имеет вид:
 \begin{equation}
@@ -196,7 +196,7 @@
 	\includegraphics[width=0.75\textwidth]{ISLAU Solution2x3.png}
 	\caption{Допусковое множество решений недопределённой ИСЛАУ}
 \end{figure} \\
-Так как 3 координата вектора $\arg \max Tol$ практически равна 0, можно рассмотреть брус 2D-проекции на плоскость $x_1 O x_2$. \\
+Так как 3 координата вектора $\arg \max \text{Tol}$ практически равна 0, можно рассмотреть брус 2D-проекции на плоскость $x_1 O x_2$. \\
 \newpage
 \begin{figure}[h]
 	\centering
@@ -205,15 +205,42 @@
 \end{figure}
 Стоит отметить, что брус не покрывает все допусковое множество решений. \\
 
+\subsubsection{Анализ решения}
+
+Можно заметить, что полученное решение ИСЛАУ $\arg \max \text{Tol}$ сильно отличается от $x_0$: \\
+\begin{equation}
+	\arg \max \text{Tol}=
+	\begin{pmatrix}
+		0.406 \\
+		0.125 \\
+		1.377 * 10^{-7}
+	\end{pmatrix} \neq x_0 = 
+	\begin{pmatrix}
+		1 \\
+		1 \\
+		-1
+	\end{pmatrix}
+\end{equation} \\
+Тем не менее, $\arg \max \text{Tol}$ удовлетворяет границам правой части:
+\begin{equation}
+	\textbf{A} * \arg \max \text{Tol} = 
+		\begin{pmatrix}
+			[1.3429, 2.6551]  \\
+			[0.3439, 2.2181] 
+		\end{pmatrix}
+	\subseteq \textbf{b}
+\end{equation} \\
+Такой результат - проявление неоднозначности решения обратной задачи. Кроме того, для СЛАУ, которая в неинтервальной постановке имела бы бесконечное множество решений, методами интервального анализа было получено конечное множество решений.
+
 
 
 \subsection{Переопределённая ИСЛАУ}
-Решим задачу с помощью функции $tolsolvty$. Получим максимум распознающего функционала $Tol$ и значение аргумента, в котором максимум достигался:
+Решим задачу с помощью функции $\text{tolsolvty}$. Получим максимум распознающего функционала $\text{Tol}$ и значение аргумента, в котором максимум достигался:
 \begin{equation}
-	\max Tol = 0.6279
+	\max \text{Tol} = 0.6279
 \end{equation}
 \begin{equation}
-	\arg \max Tol=
+	\arg \max \text{Tol}=
 	\begin{pmatrix}
 		0.8837 \\
 		-0.6744
@@ -223,11 +250,11 @@
 \subsubsection{Оценка меры вариабельности ive}
 Минимальное число обусловленности матрицы $A$ от транспонирования не меняется и равно:
 \begin{equation}
-	\min cond \textbf{A} = 2.2427
+	\min \text{cond} \textbf{A} = 2.2427
 \end{equation}
 Оценка меры вариабельности равна:
 \begin{equation}
-	ive(\textbf{A}, \textbf{b}) = 0.4342
+	\text{ive}(\textbf{A}, \textbf{b}) = 0.4342
 \end{equation}
 Брус оценки имеет вид:
 \begin{equation}
@@ -240,6 +267,7 @@
 
 \subsubsection{Допусковое множество решений}
 Построим график допускового множества решений с помощью функции EqnTol2D. Добавим брус оценки и вектор, в котором достигается максимум распознающего функционала. Допусковое множество представлено зеленой областью, вектор - красной квадратной точкой, брус - черным квадратом. \\
+\newpage
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\textwidth]{islau solution3x2.png}
@@ -247,7 +275,7 @@
 \end{figure}
 
 \subsubsection{График распознающего функционала}
-Построим график распознающего функционала $Tol(x_1, x_2)$. Красным кружком обозначена точка, в которой функционал достигает максимальное значение. \\
+Построим график распознающего функционала $\text{Tol}(x_1, x_2)$. Красным кружком обозначена точка, в которой функционал достигает максимальное значение. \\
 \newpage
 \begin{figure}[h]
 	\centering
