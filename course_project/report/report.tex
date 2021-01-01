@@ -1,0 +1,175 @@
+\include{settings}
+\usepackage{amsmath}
+
+\lstset{language=Java} 
+
+\begin{document}	% начало документа
+
+% Титульная страница
+\include{titlepage}
+
+% Содержание
+\renewcommand\contentsname{\centerline{Содержание}}
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+
+\section{Постановка задачи}
+Необходимо решить прямоугольную систему уравнений субдифференциальным методом Ньютона путем нахождения решений с различными матрицами из исходной СЛАУ и взятием минимума по включению.
+
+
+\section{Теория}
+\subsection{Получение начального приближения}
+Пусть задана ИСЛАУ:
+\begin{equation}
+	\textbf{C} x = \textbf{d}
+\end{equation}
+Для получения начального приближения нужно решить <<среднюю>> систему:
+\begin{equation}
+	\text{mid} \textbf{C}^\sim x^{(0)} = \text{sti} \textbf{d}
+\end{equation}
+
+\subsection{Субдифференциальный метод Ньютона}
+Следующее приближение вычисляется по формуле:
+\begin{equation}
+	x^{(k)} = x^{(k - 1)} - \tau (D^{(k-1)})^{-1} \mathcal{G}(x^{k - 1})
+\end{equation}
+где $\tau \in (0,1]$ - некоторая константа. \\
+
+Условием окончания алгоритма является выполнения условия:
+\begin{equation}
+	||x^{(k)} - x^{(k - 1)}|| \leq \varepsilon
+\end{equation}
+
+\subsection{Решение СЛАУ с прямоугольной матрицей}
+Для прямоугольный матриц непосредственно применение субдифференциального метода Ньютона невозможно. Нужно сделать его частью более общего процесса, и в более общей постановке.
+\begin{equation}
+	\textbf{A x} \subseteq \textbf{b}
+\end{equation}
+
+Разобъем исходную матрицу $\textbf{A}$ на квадратные подматрицы $\textbf{A}^1$, $\textbf{A}^2$, ..., $\textbf{A}^k$. \\
+
+Будем решать ИСЛАУ
+\begin{equation}
+	\textbf{A}^i \textbf{x} = \textbf{b}^i
+\end{equation}
+Затем решения $\textbf{x}^i$, $i=1, 2, ..., k$ пересекаем между собой:
+\begin{equation}
+	\textbf{x}^\star = \bigcap_{i=1}^{k} \text{pro} \textbf{x}^i
+\end{equation}
+
+
+\section{Решение}
+Дана ИСЛАУ, у которой матрица имеет размерность (126, 18). Правая часть является интервальным вектором со случайными радиусами из интервала $[0.1, 1]$. Элементы вектора-решения - случайные значения из интервала $[2, 8]$ \\
+
+Будем случайно выбирать 18 строк из этой матрицы и решать соответствующую подсистему субдифференциальным метода Ньютона, если определитель матрицы не равен 0. \\
+
+Затем, найдем пересечение полученных решений и сравним с истинным. \\
+
+Проверим, как зависит получаемое решение от количества выборов подматриц. Для этого будем искать решение-пересечение при случайном выборе 1, 5, 15, 30, 50 или 100 подсистем и сравнивать с реальным. Кроме того, посмотрим, как получаемая правая часть соотносится с исходной для всей системы.
+
+
+
+\section{Результаты}
+Исходная прямоугольная матрица имеет следующий вид:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{A_block_1.png}
+	\caption{Исходная матрица}
+\end{figure}
+
+На следующих графиках представлены сравнения полученных правых частей и исходных и сравнения векторов-решений и истинных решений при выборе 1, 5, 15, 30, 50 или 100 подсистем.
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_1_mats_1.png}
+	\caption{Сравнение правых частей. 1 подматрица}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_1_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 1 подматрица}
+\end{figure}
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_5_mats_1.png}
+	\caption{Сравнение правых частей. 5 подматриц}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_5_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 5 подматрица}
+\end{figure}
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_15_mats_1.png}
+	\caption{Сравнение правых частей. 15 подматриц}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_15_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 15 подматриц}
+\end{figure}
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_30_mats_1.png}
+	\caption{Сравнение правых частей. 30 подматриц}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_30_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 30 подматриц}
+\end{figure}
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_50_mats_1.png}
+	\caption{Сравнение правых частей. 50 подматриц}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_50_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 50 подматриц}
+\end{figure}
+\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sols_100_mats_1.png}
+	\caption{Сравнение правых частей. 100 подматриц}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{xs_100_mats_1.png}
+	\caption{Сравнение исходного решения и полученного интервального решения. 100 подматриц}
+\end{figure}
+\newpage
+
+
+\section{Анализ}
+Из графиков видно, что для всех вариантов получаемая правая часть находилась в границах исходной правой части. Более того, при увеличении количества выбираемых подматриц интервалы правой части сужались. \\
+
+Для всех вариантов истинный вектор-решение всегда находился в интервале полученного решения. А при увеличении количества подматриц полученный вектор сужался к истинному. \\
+
+Из этого можно сделать вывод, что при увеличении количества выбираемых матриц решение-пересечение стремится к истинному.
+
+
+
+\section{Приложение}
+Код программы на Python лежит в данном репозитории: \\
+\url{https://github.com/PinkOink/Interval_Analysis/tree/main/course_project}{}
+
+
+\end{document}
